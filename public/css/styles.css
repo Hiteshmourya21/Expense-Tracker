@@ -1,0 +1,54 @@
+
+body{
+   background-color: #66cccc !important;
+}
+a{
+  color: none;
+  text-decoration: none !important;
+}
+
+.nav-link{
+  color:#1a7277;
+}
+
+.Add{
+  margin-top: 1rem!important;
+  margin-bottom:  2rem;
+}
+
+.GetIncome{
+  background-color: lightgreen !important;
+  margin-bottom: 1rem ;
+  height: 50%;
+}
+.InTitle{
+    color: green !important;
+}
+
+.GetExpense{
+  background-color: rgba(182,113,124, 0.8) !important;
+  margin-bottom: 1rem ;
+  height: 50%;
+}
+.ExTitle{
+    color: rgba(255, 0, 0, 0.7) !important;
+}
+.Heading{
+    margin-bottom: 2rem;
+}
+.incomeTitle{
+  color: #8850be;
+  font-size: 3rem ;
+}
+.incomeAmount{
+  font-size: 3rem ;
+  color: green;
+}
+.expenseTitle{
+  font-size: 3rem ;
+  color: #8850be;
+}
+.expenseAmount{
+  font-size: 3rem ;
+  color: red;
+}

@@ -1,0 +1,49 @@
+<%- include("header") -%>
+
+
+
+<div class="row g-3 Add" >
+<div class="d-flex justify-content-center Heading">
+    <h1 class=" incomeTitle" >Income </h1>
+    <h1 style="font-size:3rem"> : </h1>
+    <h1 class="incomeAmount">  <%= totalIncome%></h1>
+</div>
+
+
+  <form class=""  action="/add-income" method="post">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control"  name="incomeTitle"  placeholder="Title Name">
+    <label class="form-label">Title</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input class="form-control"  type="number" name="incomeAmount" value="number" placeholder="Enter Amount">
+    <label class="form-label">Amount</label>
+  </div>
+  <div class="form-floating mb-3">
+    <textarea name="incomeDesciption"  class="form-control"  maxlength="200"></textarea>
+    <label  class="form-label">Description</label>
+  </div>
+  <div class="form-floating mb-3  ">
+    <input type="date" name="Date" value=""  class="form-control" >
+    <label  class="form-label">Date</label>
+  </div>
+  <button type="submit" class="btn btn-primary"  name="incomeSubmit">+</button>
+</form>
+
+</div>
+
+
+
+  <% incomeList.forEach(function(item){  %>
+<div class="card GetIncome" style="width: 100%;" >
+  <div class="card-body">
+    <h3 class="card-title"><strong><a href="/Item/<%= item.id %>" class="InTitle"><%= item.title %></a></strong></h3>
+    <h4 class="card-subtitle mb-2 text-body-secondary"><%= item.amount %></h4>
+    <h5 class="card-subtitle mb-2 text-body-secondary"><%= item.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></h5>
+    <p class="card-text"><%= item.description %></p>
+  </div>
+</div>
+  <% })  %>
+
+
+<%- include("footer") -%>

@@ -1,0 +1,17 @@
+<%- include("header") -%>
+
+<div class="Item">
+
+  <h1><%= Item.title %></h1>
+  <h3><%= Item.amount %></h3>
+  <p><%= Item.description %></p>
+  <p><%= Item.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></p>
+
+
+  <form class="" action="/Item/<%= Item.id %>" method="post">
+    <button type="submit" name="button" value="<%= Item.type %>" >Delete</button>
+  </form>
+
+</div>
+
+<%- include("footer") -%>

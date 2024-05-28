@@ -1,0 +1,70 @@
+<%- include("header") -%>
+
+<div class="ExpenseChart">
+  <canvas id="priceChart" width="400" height="200"></canvas>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const prices1 = <%= JSON.stringify(prices1) %>;
+      const prices2 = <%= JSON.stringify(prices2) %>;
+      const averages = <%= JSON.stringify(averages) %>;
+
+      const ctx = document.getElementById('priceChart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: Array.from({ length: Math.max(prices1.length, prices2.length) }, (_, i) => i + 1),
+          datasets: [
+            {
+              label: 'Income',
+              data: prices1,
+              borderColor: 'green',
+              fill: false
+            },
+            {
+              label: 'Expense',
+              data: prices2,
+              borderColor: 'red',
+              fill: false
+            },
+            {
+              label: 'Average',
+              data: averages,
+              borderColor: 'blue',
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Time'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Price'
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</div>
+
+<div class="Recent">
+  <% Items.forEach(function(item){  %>
+    <h1><%= item.title %></h1>
+    <h3><%= item.amount %></h3>
+    <p><%= item.description %></p>
+    <p><%= item.date %></p>
+  <% })  %>
+
+</div>
+
+
+<%- include("footer") -%>
