@@ -17,7 +17,7 @@
   <label class="form-label">Amount</label>
 </div>
 <div class="form-floating mb-3">
-  <textarea name="incomeDesciption"  class="form-control"  maxlength="200"></textarea>
+  <textarea name="expenseDesciption"  class="form-control"  maxlength="200"></textarea>
   <label  class="form-label">Description</label>
 </div>
 <div class="form-floating mb-3  ">
@@ -29,15 +29,24 @@
 
 </div>
 
-<% expenseList.forEach(function(item){  %>
-<div class="card GetExpense" style="width: 100%;" >
-<div class="card-body">
-  <h3 class="card-title"><strong><a href="/Item/<%= item.id %>" class="ExTitle"><%= item.title %></a></strong></h3>
-  <h4 class="card-subtitle mb-2 text-body-secondary"><%= item.amount %></h4>
+<% ItemList.forEach(function(item){  %>
+  <a href="/Item/<%= item._id %>" class="InTitle">
+<div class="d-flex justify-content-center">
+<div class="card GetExpense" style="width: 70%; " >
+<div class="card-body row d-flex justify-content-center" >
+  <div class="col-auto">
+    <h3 class="card-title" style="  color: rgba(0,0,0,0.78) !important;"><strong><%= item.title %></strong></h3>
+  </div>
+<div class="col-auto" style="padding:5px ">
+  <h4 class="card-subtitle mb-2 text-body-secondary" style="color: rgba(255, 0, 0) !important;">$ <%= item.amount %></h4>
+</div>
+<div class="col-auto" style="padding:7px">
   <h5 class="card-subtitle mb-2 text-body-secondary"><%= item.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></h5>
-  <p class="card-text"><%= item.description %></p>
 </div>
 </div>
+</div>
+</div>
+</a>
 <% })  %>
 
 

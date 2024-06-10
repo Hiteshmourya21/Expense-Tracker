@@ -57,11 +57,27 @@
 </div>
 
 <div class="Recent">
+
   <% Items.forEach(function(item){  %>
-    <h1><%= item.title %></h1>
-    <h3><%= item.amount %></h3>
-    <p><%= item.description %></p>
-    <p><%= item.date %></p>
+    <a href="/Item/<%= item.id %>" class="InTitle">
+    <div class="d-flex justify-content-center">
+    <div class="card GetRecent" style="width: 70% " >
+      <div class="card-body row d-flex justify-content-center">
+
+        <div class="col-auto">
+          <h3 class="card-title" style="  color: rgba(0,0,0,0.78) !important;"><strong><%= item.title %></strong></h3>
+        </div>
+        <div class="col-auto" style="padding:5px">
+          <h4 class="card-subtitle mb-2 text-body-secondary" style="color:purple!important">$ <%= item.amount %></h4>
+        </div>
+      <div class="col-auto" style="padding:7px" >
+        <h5 class="card-subtitle mb-2 text-body-secondary"><%= item.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></h5>
+        </div>
+
+      </div>
+    </div>
+    </div>
+    </a>
   <% })  %>
 
 </div>

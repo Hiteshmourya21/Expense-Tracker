@@ -1,28 +1,32 @@
 
 body{
-   background-color: #66cccc !important;
+   background-image: linear-gradient(rgba(61,133,198), rgba(159,197,232))!important;
 }
 a{
-  color: none;
   text-decoration: none !important;
 }
 
-.nav-link{
-  color:#1a7277;
+.navbar-custom{
+  top:0;
+  left: 15px;
 }
-
+.ExpenseChart{
+  background-color: rgba(146,203,255);
+  margin: 10%;
+}
 .Add{
   margin-top: 1rem!important;
   margin-bottom:  2rem;
 }
-
+.GetRecent{
+  background-color: rgba(5,113,217,0.7)!important;
+  margin-bottom: 1rem ;
+  height: 50%;
+}
 .GetIncome{
   background-color: lightgreen !important;
   margin-bottom: 1rem ;
   height: 50%;
-}
-.InTitle{
-    color: green !important;
 }
 
 .GetExpense{
@@ -31,7 +35,7 @@ a{
   height: 50%;
 }
 .ExTitle{
-    color: rgba(255, 0, 0, 0.7) !important;
+      color: rgba(0,0,0,0.78) !important;
 }
 .Heading{
     margin-bottom: 2rem;
