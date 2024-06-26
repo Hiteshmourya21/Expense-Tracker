@@ -1,35 +1,35 @@
 <%- include("header") -%>
-
-<div class="SignUp">
-  <h1>Sign Up</h1>
-  <form  action="/SignUP" method="post">
-    <div class="">
-      <label>UserName</label>
-      <input type="text" name="UserName" value="" placeholder="Enter Name">
-    </div>
-      <div class="">
-        <label>Password</label>
-        <input type="password" name="password1" value="" placeholder="Enter Password"><br>
-        <label>Enter Again</label>
-        <input type="password" name="password2" value="" placeholder="Enter Password">
+<div class="container">
+  <h2>Signup</h2>
+  <form action="/SignUP" method="post">
+      <div class="input-group">
+          <label for="signup-username">Username</label>
+          <input type="text" name="UserName" value="" placeholder="Enter Name" required>
       </div>
-      <button type="submit" name="SignUp">SignUp</button>
-  </form>
-</div>
-
-<div class="Login">
-  <h1>Login</h1>
-  <form  action="/Login" method="post">
-    <div class="">
-      <label>UserName</label>
-      <input type="text" name="UserName" value="" placeholder="Enter Name">
-    </div>
-      <div class="">
-        <label>Password</label>
-        <input type="password" name="password" value="" placeholder="Enter Password"><br>
+      <div class="input-group">
+          <label for="signup-password">Password</label>
+          <input type="password" name="password1" value="" placeholder="Enter Password" required>
       </div>
-      <button type="submit" name="Login">Login</button>
+      <div class="input-group">
+          <label for="signup-repassword">Re-enter Password</label>
+          <input type="password" name="password2" value="" placeholder="Enter Password" required>
+      </div>
+      <button type="submit" class="login-button">Signup</button>
   </form>
+
+
+<h2>Login</h2>
+<form action="/Login" method="POST">
+    <div class="input-group">
+        <label for="login-username">Username</label>
+        <input type="text" name="UserName" value="" placeholder="Enter Name" required>
+    </div>
+    <div class="input-group">
+        <label for="login-password">Password</label>
+        <input type="password" name="password" value="" placeholder="Enter Password" required>
+    </div>
+    <button type="submit" class="login-button">Login</button>
+</form>
 </div>
 
 <%- include("footer") -%>

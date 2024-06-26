@@ -1,59 +1,45 @@
 <%- include("header") -%>
 
+<div class="add-page">
+       <h2>Add Income : <span style="color:darkgreen;"> <%= totalIncome%></span> </h2>
+       <form action="/add-income" method="post" class="income-expense-form">
+           <div class="input-group">
+               <label for="title">Title</label>
+               <input type="text" name="incomeTitle"  placeholder="Title Name" maxlength="20" required>
+           </div>
+           <div class="input-group">
+               <label for="amount">Amount</label>
+               <input type="number" name="incomeAmount" value="number" placeholder="Enter Amount" maxlength="6" required>
+           </div>
+           <div class="input-group">
+               <label for="description">Description</label>
+               <input name="incomeDesciption"   maxlength="200"></input>
+           </div>
+           <div class="input-group" style="width:15%;">
+               <label for="date">Date</label>
+               <input type="date" name="Date" value="" required>
+           </div>
+           <button type="submit"  name="incomeSubmit" class="submit-btn">+</button>
+       </form>
 
 
-<div class="row g-3 Add" >
-<div class="d-flex justify-content-center Heading">
-    <h1 class=" incomeTitle" >Income </h1>
-    <h1 style="font-size:3rem"> : </h1>
-    <h1 class="incomeAmount">  <%= totalIncome%></h1>
-</div>
+       <div class="records">
+           <h3>Your Incomes</h3>
+           <% if ( ItemList.length > 0) { %>
+               <ul>
+                   <% ItemList.forEach(function(income) { %>
+                     <a href="/Item/<%= income._id %>/">
+                       <li class="record-list">
+                         <strong><%= income.title %> </strong>
+                         <span style="color:green">$ <%= income.amount %></span>
+                          on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></li>
+                    </a>
+                   <% }) %>
+               </ul>
+           <% } else { %>
+               <p>No incomes added yet.</p>
+           <% } %>
+   </div>
 
-
-  <form class=""  action="/add-income" method="post">
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control"  name="incomeTitle"  placeholder="Title Name" maxlength="20">
-    <label class="form-label">Title</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input class="form-control"  type="number" name="incomeAmount" value="number" placeholder="Enter Amount" maxlength="6">
-    <label class="form-label">Amount</label>
-  </div>
-  <div class="form-floating mb-3">
-    <textarea name="incomeDesciption"  class="form-control"  maxlength="200"></textarea>
-    <label  class="form-label">Description</label>
-  </div>
-  <div class="form-floating mb-3  ">
-    <input type="date" name="Date" value=""  class="form-control" >
-    <label  class="form-label">Date</label>
-  </div>
-  <button type="submit" class="btn btn-primary"  name="incomeSubmit">+</button>
-</form>
-
-</div>
-
-<% ItemList.forEach(function(item){  %>
-
-<a href="/Item/<%= item._id %>" class="InTitle">
-<div class="d-flex justify-content-center">
-<div class="card GetIncome" style="width: 70% " >
-  <div class="card-body row d-flex justify-content-center">
-
-    <div class="col-auto">
-      <h3 class="card-title" style="  color: rgba(0,0,0,0.78) !important;"><strong><%= item.title %></strong></h3>
-    </div>
-    <div class="col-auto" style="padding:5px">
-      <h4 class="card-subtitle mb-2 text-body-secondary" style="color:green!important">$ <%= item.amount %></h4>
-    </div>
-  <div class="col-auto" style="padding:7px" >
-    <h5 class="card-subtitle mb-2 text-body-secondary"><%= item.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></h5>
-      </div>
-
-  </div>
-</div>
-</div>
-</a>
-
-<% })  %>
 
 <%- include("footer") -%>

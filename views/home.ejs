@@ -1,12 +1,12 @@
 <%- include("header") -%>
-
-<div class="ExpenseChart">
+<div class="add-page">
+<div class="chart">
   <canvas id="priceChart" width="400" height="200"></canvas>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const prices1 = <%= JSON.stringify(prices1) %>;
-      const prices2 = <%= JSON.stringify(prices2) %>;
-      const averages = <%= JSON.stringify(averages) %>;
+      const prices1 = <%= JSON.stringify(incomeAmounts) %>;
+      const prices2 = <%= JSON.stringify(expenseAmounts) %>;
+      const averages = <%= JSON.stringify(average) %>;
 
       const ctx = document.getElementById('priceChart').getContext('2d');
       const chart = new Chart(ctx, {
@@ -56,31 +56,30 @@
   </script>
 </div>
 
-<div class="Recent">
+<div class="records">
 
-  <% Items.forEach(function(item){  %>
-    <a href="/Item/<%= item.id %>" class="InTitle">
-    <div class="d-flex justify-content-center">
-    <div class="card GetRecent" style="width: 70% " >
-      <div class="card-body row d-flex justify-content-center">
+  <h3>Recent</h3>
+  <% if ( Items.length > 0) { %>
+      <ul>
+          <% Items.forEach(function(income) { %>
+            <a href="/Item/<%= income._id %>/">
+              <li class="record-list">
+                <strong><%= income.title %> </strong>
+                <% if ( income.type == "Income") { %>
+                  <span style="color:lightgreen">$ <%= income.amount %></span>
+                <% } else { %>
+                  <span style="color:red">$ <%= income.amount %></span>
+                    <% } %>
+                 on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></li>
+           </a>
+          <% }) %>
+      </ul>
+  <% } else { %>
+      <p>No incomes added yet.</p>
+  <% } %>
 
-        <div class="col-auto">
-          <h3 class="card-title" style="  color: rgba(0,0,0,0.78) !important;"><strong><%= item.title %></strong></h3>
-        </div>
-        <div class="col-auto" style="padding:5px">
-          <h4 class="card-subtitle mb-2 text-body-secondary" style="color:purple!important">$ <%= item.amount %></h4>
-        </div>
-      <div class="col-auto" style="padding:7px" >
-        <h5 class="card-subtitle mb-2 text-body-secondary"><%= item.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></h5>
-        </div>
-
-      </div>
-    </div>
-    </div>
-    </a>
-  <% })  %>
 
 </div>
-
+</div>
 
 <%- include("footer") -%>

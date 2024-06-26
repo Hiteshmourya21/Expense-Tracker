@@ -28,6 +28,3 @@ const expenseSchema = new mongoose.Schema({
 }, {timestamps:true});
 
 module.exports = expenseSchema;
-
-module.exports = expenseSchema;
- 

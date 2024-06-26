@@ -17,6 +17,7 @@ var username ="" ;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+let expCol = db.collection('expenses');
 const Expense = mongoose.model("Expense",expenseSchema)
 
 function calculateAverages(prices1, prices2) {
@@ -41,19 +42,34 @@ app.get('/',function (req,res){
 
 app.get('/home',async(req,res)=>{
   try {
-   const data1 = await Expense.find({type:"Income"}).lean();
-   const data2 = await Expense.find({type:"Expense"}).lean();
+    const user = await User.findOne({ name: username });
 
-   const prices1 = data1.map(item => item.amount);
-   const prices2 = data2.map(item => item.amount);
-   const averages = calculateAverages(prices1, prices2);
+if (!user) {
+  console.log('User not found');
+  return;
+}
 
-   Expense.find().sort({createdAt : -1}).limit(5).then(foundItems =>{
-       res.render('home', { prices1, prices2, averages ,Items : foundItems});
+// Filter items to include only income expenses and map their amounts
+const incomeAmounts = user.items
+  .filter(item => item.type === 'Income')
+  .map(item => item.amount);
+
+  const expenseAmounts = user.items
+    .filter(item => item.type === 'Expense')
+    .map(item => item.amount);
+
+const average =  calculateAverages(incomeAmounts,expenseAmounts)
+   User.find({name:username}).sort({createdAt : -1}).limit(5).then(foundlist=>{
+     const recentItem = []
+     foundlist.forEach(function(items){
+       items.items.forEach(function(item){
+           recentItem.push(item)
+       })
+})
+      res.render('home', { incomeAmounts, expenseAmounts, average ,Items : recentItem});
    }).catch(err=>{
-     console.log("Fetching Error:"+err)
+     console.log(err);
    })
-
 
  } catch (err) {
    res.status(500).send(err);
@@ -64,7 +80,6 @@ app.get('/add-income',async(req,res)=>{
   let totalIncome = 0;
   const incomeItems = []
   User.find({name:username}).then(foundItems =>{
-
     foundItems.forEach(function(items){
       items.items.forEach(function(item){
         if(item.type ==="Income"){
@@ -72,7 +87,7 @@ app.get('/add-income',async(req,res)=>{
           incomeItems.push(item)
         }
       })
-      
+
       res.render("income",{ItemList : incomeItems,totalIncome:totalIncome})
       })
   }).catch(err =>{
@@ -126,28 +141,15 @@ app.post("/SignUP",function(req,res){
     res.status(400).send("All fields are required")
   }
   else{
-    const defaultIncomeItem = new Expense({
-      title : "Default",
-      amount : 0,
-      description : "Deafult Item",
-      date :  new Date('2024-02-21T00:00:00.000Z'),
-      type : "Income"
-    })
-    const defaultExpenseItem = new Expense({
-      title : "Default",
-      amount : 0,
-      description : "Deafult Item",
-      date :  new Date('2024-02-21T00:00:00.000Z'),
-      type : "Expense"
-    })
+
     const newUser = new User({
       name : name,
       password:p1,
-      items : [defaultIncomeItem,defaultExpenseItem]
+      items : []
     })
     newUser.save()
     username = name;
-    res.redirect("/")
+    res.redirect("/home")
   }
 })
 app.post("/Login",function(req,res){
@@ -156,7 +158,7 @@ app.post("/Login",function(req,res){
 
   User.findOne({name:name,password:password}).then(foundItem=>{
     username = name
-    res.redirect("/")
+    res.redirect("/home")
   })
 
 
@@ -222,17 +224,24 @@ app.post("/add-expense",function(req,res){
       console.log(err);
     })
 
-
+    expCol.deleteMany({});
   }
 })
-app.post('/Item/:ItemId',function(req,res){
+app.post('/Item/:ItemId/',function(req,res){
   let id = req.params.ItemId;
+  let type = req.body.button;
+  console.log(req.body)
   User.updateOne(
     {name:username},
     {$pull:{items:{_id :id }}}
   )
 .then(()=>{
-  res.redirect("/")
+  if(type == 'Income'){
+    res.redirect("/add-income")
+  }
+  else{
+    res.redirect("/add-expense")
+  }
   }).catch(err=>{
     console.log("Fetching Error:"+err);
   })

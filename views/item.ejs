@@ -1,15 +1,19 @@
 <%- include("header") -%>
 
-<div class="Item">
+<div class="container" style="padding:20px;">
 
-  <h1><%= Item.title %></h1>
-  <h3><%= Item.amount %></h3>
-  <p><%= Item.description %></p>
-  <p><%= Item.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></p>
+  <h1 style="text-align:center;"><%= Item.title %></h1>
+  <% if (Item.type == "Income" ) { %>
+    <h3 style="color:lightgreen;">$ <%= Item.amount %></h3>
+    <% }else { %>
+        <h3 style="color:red;">$ <%= Item.amount %></h3>
+<%}%>
+  <p  style="margin:30px 0 30px 0;" ><%= Item.description %></p>
+  <p>On <%= Item.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></p>
 
 
   <form class="" action="/Item/<%= Item.id %>" method="post">
-    <button type="submit" name="button" value="<%= Item.type %>" >Delete</button>
+    <button class="login-button"  style="width:50%; margin:30px 0 0 25%;" type="submit" name="button" value="<%= Item.type %>" >Delete</button>
   </form>
 
 </div>
