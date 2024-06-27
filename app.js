@@ -12,8 +12,7 @@ app.set("view engine",'ejs')
 
 var username ="" ;
 //DATABASE
- mongoose.connect('mongodb+srv://Hitesh:0zwKN11GryRsdbQr@cluster0.l5jm2ax.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
-// mongoose.connect('mongodb://localhost:27017/myExpenseTracker', { useNewUrlParser: true, useUnifiedTopology: true });
+ // mongoose.connect('mongodb://localhost:27017/myExpenseTracker', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
