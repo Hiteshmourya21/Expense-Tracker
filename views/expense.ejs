@@ -1,7 +1,7 @@
 <%- include("header") -%>
 
 <div class="add-page">
-       <h2>Add Expense : <span style="color:darkred;"> <%= totalExpense%></span></h2>
+       <h2 style="display: flex;justify-content: space-between;"><span>Your Balance : $ <%= Yourbalance %> </span><span>Total Expense : <span style="color:darkred;"> <%= totalExpense%></span></span></h2>
        <form action="/add-expense" method="post" class="income-expense-form">
            <div class="input-group">
                <label for="title">Title</label>
@@ -16,28 +16,38 @@
                <input  name="expenseDesciption"  maxlength="200"  maxlength="200"></input>
            </div>
            <div class="input-group" style="width:15%;">
+               <label for="category">Category</label>
+               <select  name="category">
+                 <% CategoryList.forEach(function(item) { %>
+                   <option value="<%= item.link %>"><%= item.name %></option>
+                   <% }) %>
+               </select>
+           </div>
+           <div class="input-group" style="width:15%;">
                <label for="date">Date</label>
                <input type="date" name="Date" value=""  required>
            </div>
-          <button type="submit"  name="expenseSubmit" class="submit-btn">+</button>
+          <button type="submit"   name="expenseSubmit" class="submit-btn">Add Expense</button>
        </form>
 
 
     <div class="records">
-           <h3>Your Incomes</h3>
+           <h3>Your Expenses</h3>
            <% if ( ItemList.length > 0) { %>
                <ul>
                    <% ItemList.forEach(function(income) { %>
                      <a href="/Item/<%= income._id %>">
                        <li class="record-list">
-                         <strong><%= income.title %> </strong>
+                         <span><i class="<%= income.category %>"></i></span>
+                         <span><strong><%= income.title %> </strong></span>
                          <span style="color:red">$ <%= income.amount %></span>
-                          on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></li>
+                        <span>  on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></span>
+                        </li>
                     </a>
                    <% }) %>
                </ul>
            <% } else { %>
-               <p>No incomes added yet.</p>
+               <p>No expense added yet.</p>
            <% } %>
     </div>
 

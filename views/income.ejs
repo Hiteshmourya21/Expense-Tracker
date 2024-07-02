@@ -1,7 +1,7 @@
 <%- include("header") -%>
 
 <div class="add-page">
-       <h2>Add Income : <span style="color:darkgreen;"> <%= totalIncome%></span> </h2>
+       <h2 style="display: flex;justify-content: space-between;"><span>Your Balance : $ <%= Yourbalance %> </span><span > Total Income : <span style="color:darkgreen;">$ <%= totalIncome%></span> </span></h2>
        <form action="/add-income" method="post" class="income-expense-form">
            <div class="input-group">
                <label for="title">Title</label>
@@ -19,7 +19,7 @@
                <label for="date">Date</label>
                <input type="date" name="Date" value="" required>
            </div>
-           <button type="submit"  name="incomeSubmit" class="submit-btn">+</button>
+           <button type="submit"  name="incomeSubmit" class="submit-btn">Add Income</button>
        </form>
 
 

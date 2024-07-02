@@ -1,5 +1,5 @@
 const mongoose  = require("mongoose")
-const expenseSchema = new mongoose.Schema({
+const remainderSchema = new mongoose.Schema({
   title:{
     type : String,
     required : true,
@@ -12,22 +12,14 @@ const expenseSchema = new mongoose.Schema({
     trim : true,
     maxLength : 6
   },
-  type:{
-    type : String,
-  },
   date:{
       type : Date,
       required : true,
   },
-  category : {
-    type : String,
-  },
-  description:{
+  timer:{
       type : String,
       required : true,
-      trim : true,
-      maxLength : 200
     }
 }, {timestamps:true});
 
-module.exports = expenseSchema;
+module.exports = remainderSchema;

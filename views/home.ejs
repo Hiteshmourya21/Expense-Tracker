@@ -1,7 +1,10 @@
 <%- include("header") -%>
-<div class="add-page">
-<div class="chart">
-  <canvas id="priceChart" width="400" height="200"></canvas>
+
+<div class="chart-p-container">
+
+<div class="chart-p">
+  <p>Line Chart</p>
+  <canvas id="priceChart" ></canvas>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const prices1 = <%= JSON.stringify(incomeAmounts) %>;
@@ -40,7 +43,7 @@
             x: {
               title: {
                 display: true,
-                text: 'Time'
+                text: 'timestamps'
               }
             },
             y: {
@@ -56,22 +59,96 @@
   </script>
 </div>
 
+</div>
+
+<div class="section2">
+
+<div class="chart-d">
+
+<p>Doughnut Chart</p>
+  <canvas id="doughnutChart" ></canvas>
+</div>
+
+<script>
+    // Data for the charts
+    const data = {
+        labels: ["Food", "Shopping", "Rent", "Travel", "Policy", "Laundry", "Insurances", "Health Care", "Tax"], // Ensure labels are correctly formatted
+        datasets: [{
+            label: 'My First Dataset',
+            data: <%= JSON.stringify(valueList) %>, // Ensure data is correctly formatted
+            backgroundColor: [
+           'rgba(255, 99, 132, 0.8)',
+           'rgba(54, 162, 235, 0.8)',
+           'rgba(255, 206, 86, 0.8)',
+           'rgba(75, 192, 192, 0.8)',
+           'rgba(153, 102, 255, 0.8)',
+           'rgba(255, 159, 64, 0.8)',
+           'rgba(255, 99, 71, 0.8)',
+           'rgba(255, 193, 7, 0.8)',
+           'rgba(0, 204, 102, 0.8)'
+       ],
+       borderColor: [
+           'rgba(255, 99, 132, 1)',
+           'rgba(54, 162, 235, 1)',
+           'rgba(255, 206, 86, 1)',
+           'rgba(75, 192, 192, 1)',
+           'rgba(153, 102, 255, 1)',
+           'rgba(255, 159, 64, 1)',
+           'rgba(255, 99, 71, 1)',
+           'rgba(255, 193, 7, 1)',
+           'rgba(0, 204, 102, 1)'
+       ],
+            borderWidth: 1
+        }]
+    };
+
+    // Configuration for Doughnut Chart
+    const configDoughnut = {
+        type: 'doughnut',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Doughnut Chart Example'
+                }
+            }
+        },
+    };
+
+    // Initialize the Doughnut Chart
+    const doughnutChart = new Chart(
+        document.getElementById('doughnutChart'),
+        configDoughnut
+    );
+</script>
+
+
 <div class="records">
 
   <h3>Recent</h3>
   <% if ( Items.length > 0) { %>
       <ul>
           <% Items.forEach(function(income) { %>
-            <a href="/Item/<%= income._id %>/">
+            <a href="/Item/<%= income._id %>">
               <li class="record-list">
-                <strong><%= income.title %> </strong>
+                <span><i class="<%= income.category %>"></i></span>
+                <span><strong><%= income.title %> </strong></span>
+
                 <% if ( income.type == "Income") { %>
                   <span style="color:lightgreen">$ <%= income.amount %></span>
                 <% } else { %>
                   <span style="color:red">$ <%= income.amount %></span>
                     <% } %>
-                 on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></li>
+              
+               <span>  on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></span>
+               </li>
            </a>
+
           <% }) %>
       </ul>
   <% } else { %>

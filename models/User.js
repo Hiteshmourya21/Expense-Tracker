@@ -1,5 +1,6 @@
 const mongoose  = require("mongoose")
 const expenseSchema = require("./Expense")
+const remainderSchema = require("./Remainder")
 
 const UserSchema = new mongoose.Schema({
   name: { type: String,
@@ -9,6 +10,15 @@ const UserSchema = new mongoose.Schema({
   password: { type: String,
      required: true
     },
+  money : {
+      type: Number,
+      default : 0
+    },
+  limit : {
+      type:Number,
+      default : 0
+    },
+  remainder :[remainderSchema],
   items: [expenseSchema]
 }, {timestamps:true});
 

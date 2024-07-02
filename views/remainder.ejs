@@ -1,0 +1,58 @@
+<%- include("header") -%>
+
+<div class="add-page">
+
+  <h2>Set Reminder</h2>
+
+  <form class="" action="/set-remainder" method="post">
+    <div class="input-group">
+        <label for="Title">Title</label>
+        <input type="text" name="Title"  placeholder="Enter Title" required  >
+    </div>
+    <div class="input-group">
+        <label for="Amount">Amount</label>
+        <input type="number" name="Amount"  placeholder="Enter Amount" required >
+    </div>
+    <div class="input-group">
+        <label for="Date">Date</label>
+        <input type="date" name="Date" required>
+    </div>
+    <div class="input-group">
+        <label for="Timer">Set Reminder Time</label>
+        <select name="timer">
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Monthly">Monthly</option>
+          
+        </select>
+    </div>
+    <button type="submit"  name="button" class="submit-btn" >Add</button>
+  </form>
+
+
+<div class="records">
+  <h3>Reminder Item</h3>
+  <% if ( Items.length > 0) { %>
+      <ul>
+          <% Items.forEach(function(item) { %>
+              <li class="record-list">
+                <strong><%= item.title %> </strong>
+                <span >$ <%= item.amount %></span>
+                 <span>on  <%= item.date.toLocaleDateString("en-US",{month: "long",day: "numeric",}) %></span>
+                 <span><%= item.timer %></span>
+                 <form action="/set-remainder" method="post" style="display:inline;">
+                   <input type="hidden" name="Id" value="<%= item.id %>">
+                   <button type="submit" value="True" name="deleteRemainder">
+                   ✖
+                   </button>
+                 </form>
+
+               </li>
+          <% }) %>
+      </ul>
+  <% } else { %>
+      <p>No remainders added yet.</p>
+  <% } %>
+</div>
+</div>
+<%- include("footer") -%>

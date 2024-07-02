@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.js Doughnut and Pie Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <h2>Doughnut Chart</h2>
+        <canvas id="doughnutChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Pie Chart</h2>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+    <script>
+        // Data for the charts
+        const data = {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [300, 50, 100, 40, 120, 80],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Configurations for Doughnut Chart
+        const configDoughnut = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Doughnut Chart Example'
+                    }
+                }
+            },
+        };
+
+        // Configurations for Pie Chart
+        const configPie = {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Pie Chart Example'
+                    }
+                }
+            },
+        };
+
+        // Initialize the Doughnut Chart
+        const doughnutChart = new Chart(
+            document.getElementById('doughnutChart'),
+            configDoughnut
+        );
+
+        // Initialize the Pie Chart
+        const pieChart = new Chart(
+            document.getElementById('pieChart'),
+            configPie
+        );
+    </script>
+</body>
+</html>

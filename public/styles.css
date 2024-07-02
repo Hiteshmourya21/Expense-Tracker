@@ -5,6 +5,32 @@ body {
     margin: 0;
 }
 
+.image{
+  color: red;
+  border-color: blue;
+  border-radius: 100%;
+  border-width: thick;
+}
+
+.UserIcone{
+  padding: 10px;
+  margin: 10px auto 10px auto;
+  text-align:center;
+}
+
+.userButton{
+
+  display: block;
+  width: 30%;
+  border : none;
+  border-radius: 4px;
+  height: 30px;
+  background-color: #6200ee;
+  color: #ffffff;
+  font-size: 16px;
+  margin: 15px auto 20px auto;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -114,13 +140,6 @@ h2 {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.chart{
-  background-color: #343434;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 25px;
-}
 
 
 .records h3 {
@@ -134,7 +153,14 @@ h2 {
     margin: 0;
 }
 
+.records ul li span{
+  display: flex;
+
+}
+
 .records ul li {
+  display: flex;
+  justify-content:space-around;
     background-color: #333333;
     padding: 10px;
     border-radius: 4px;
@@ -143,6 +169,7 @@ h2 {
 
 .record-list{
    text-align:center;
+
 }
 .add-page {
     background-color: #1e1e1e;
@@ -151,8 +178,58 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 80%;
     max-width: 800px;
-    margin: 50px auto;
+    margin: 50px auto 0 auto;
+
 }
+.chart-p-container{
+
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 1000px;
+  margin: 50px auto;
+}
+
+.chart-p{
+  height: 400px;
+  background-color: #343434;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 25px;
+}
+
+.section2{
+  display: flex;
+  justify-content: space-between;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  margin: 50px auto 0 auto;
+}
+
+.chart-d{
+  background-color: #343434;
+  display: inline-block;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 25px;
+  width: 40%;
+
+}
+
+.section2 .records{
+  background-color: #1e1e1e;
+  display: inline-block;
+  margin-left: 50px;
+  width: 50%;
+}
+
 
 a{
   text-decoration: none;
