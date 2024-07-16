@@ -1,7 +1,7 @@
 <%- include("header") -%>
 
 <div class="add-page">
-       <h2 style="display: flex;justify-content: space-between;"><span>Your Balance : $ <%= Yourbalance %> </span><span>Total Expense : <span style="color:darkred;"> <%= totalExpense%></span></span></h2>
+       <h2 style="display: flex;justify-content: space-between;"><span>Your Balance : Rs. <%= Yourbalance %> </span><span>Total Expense : <span style="color:darkred;"> <%= totalExpense%></span></span></h2>
        <form action="/add-expense" method="post" class="income-expense-form">
            <div class="input-group">
                <label for="title">Title</label>
@@ -40,7 +40,7 @@
                        <li class="record-list">
                          <span><i class="<%= income.category %>"></i></span>
                          <span><strong><%= income.title %> </strong></span>
-                         <span style="color:red">$ <%= income.amount %></span>
+                         <span style="color:red">Rs. <%= income.amount %></span>
                         <span>  on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></span>
                         </li>
                     </a>

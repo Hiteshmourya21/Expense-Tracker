@@ -17,6 +17,8 @@ app.set("view engine",'ejs')
 
 var username ="default" ;
 var totalexp = 0;
+var month = 0;
+
 
 //DATABASE
  mongoose.connect('mongodb+srv://Hitesh:0zwKN11GryRsdbQr@cluster0.l5jm2ax.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -69,7 +71,10 @@ app.get('/home',async(req,res)=>{
 try {
     const user = await User.findOne({ name: username });
     if (!user) {
-  console.log('User not found');
+      notifier.notify({
+        title: 'User Not Exist',
+        message: 'Please Sign Up to proceed',
+      });
   return;
 }
 
@@ -85,16 +90,22 @@ const incomeAmounts = user.items
 const average =  calculateAverages(incomeAmounts,expenseAmounts)
 
 
-User.find({name:username}).sort({createdAt : -1}).limit(10).then(foundlist=>
+User.find({name:username}).then(foundlist=>
      {
-      var recentItem = []
-
-
+    var recentItem = []
      foundlist.forEach(function(items){
-       items.items.forEach(function(item){
-           recentItem.push(item)
+       items.items.sort(function(a, b){
+        return b.createdAt - a.createdAt 
        })
-})
+       
+        for(let i=0;i<5;i++){
+          recentItem.push(items.items[i])
+        }
+
+       })
+       
+
+
 var  expenseItem = []
   user.items.forEach(function(item){
   if(item.type == "Expense"){
@@ -107,7 +118,7 @@ Category.find().then(foundlist=>{
     var n = 0;
     expenseItem.forEach(function(expItem){
       if(expItem.category == item.link){
-        n+=1;
+        n+= expItem.amount;
       }
     })
     valueList.push(n)
@@ -199,6 +210,14 @@ else if(userbutton == "limit"){
     console.log("Error Found"+err)
   })
 }
+else if(userbutton == "Logout"){
+  username = ""
+  notifier.notify({
+    title: 'User Logout Successfully',
+    message: 'Please Log In to proceed',
+  });
+  res.redirect("/")
+}
 
 
 })
@@ -213,7 +232,6 @@ app.get('/add-income',async(req,res)=>{
       items.items.forEach(function(item){
         if(item.type ==="Income"){
           totalIncome = totalIncome + item.amount;
-          console.log(totalIncome)
           incomeItems.push(item)
         }
       })
@@ -351,6 +369,39 @@ app.get('/add-category',function(req,res){
 
 })
 
+app.get('/history',function (req,res){
+  User.find({name:username}).then(foundlist=>{
+    let IncomeList = []
+    let ExpenseList = []
+
+    foundlist.forEach(function(items){
+      items.items.forEach(function(item){
+        if(month == item.date.getMonth()){
+          if(item.type == "Income"){
+            IncomeList.push(item)
+          }
+          else{
+            ExpenseList.push(item)
+          }
+        }
+      })
+      res.render('history',{IList: IncomeList, EList: ExpenseList});
+      
+    })
+    
+  }).catch(err=>{
+    console.log(err)
+  })
+ 
+  
+})
+
+app.post('/history',function (req,res){
+   month = req.body.month;
+
+  res.redirect('history');
+})
+
 app.post("/SignUP",function(req,res){
   const p1 = req.body.password1;
   const p2 = req.body.password2;
@@ -370,6 +421,11 @@ app.post("/SignUP",function(req,res){
     })
     newUser.save()
     username = name;
+    notifier.notify({
+      title: 'User Created Successfully',
+      message: 'Please Sign In to proceed',
+    });
+    
     res.redirect("/")
   }
 })
@@ -411,6 +467,7 @@ app.post("/add-income",function(req,res){
       foundlist.money = parseInt(foundlist.money) + parseInt(amount);
       foundlist.items.push(incomeItem);
       foundlist.save();
+      recentItem = []
       res.redirect("/add-income")
     }).catch(err=>{
       console.log(err);
@@ -454,6 +511,7 @@ app.post("/add-expense",function(req,res){
         foundlist.money = parseInt(foundlist.money) - parseInt(amount);
         foundlist.items.push(expenseItem);
         foundlist.save();
+        recentItem = []
         res.redirect("/add-expense")
       }
     }).catch(err=>{

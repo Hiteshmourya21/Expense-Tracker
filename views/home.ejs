@@ -3,7 +3,7 @@
 <div class="chart-p-container">
 
 <div class="chart-p">
-  <p>Line Chart</p>
+  <!-- <p>Line Chart</p> -->
   <canvas id="priceChart" ></canvas>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -65,16 +65,16 @@
 
 <div class="chart-d">
 
-<p>Doughnut Chart</p>
+<!-- <p>Doughnut Chart</p> -->
   <canvas id="doughnutChart" ></canvas>
 </div>
 
 <script>
     // Data for the charts
     const data = {
-        labels: ["Food", "Shopping", "Rent", "Travel", "Policy", "Laundry", "Insurances", "Health Care", "Tax"], // Ensure labels are correctly formatted
+        labels: ["Tax", "Laundry", "Policy", "Shopping", "Health Care", "Insurances", "Travel", "Rent", "Food"], // Ensure labels are correctly formatted
         datasets: [{
-            label: 'My First Dataset',
+            label: 'Total Expense',
             data: <%= JSON.stringify(valueList) %>, // Ensure data is correctly formatted
             backgroundColor: [
            'rgba(255, 99, 132, 0.8)',
@@ -114,7 +114,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Doughnut Chart Example'
+                    text: 'Expense Analysis'
                 }
             }
         },
@@ -140,11 +140,11 @@
                 <span><strong><%= income.title %> </strong></span>
 
                 <% if ( income.type == "Income") { %>
-                  <span style="color:lightgreen">$ <%= income.amount %></span>
+                  <span style="color:lightgreen">Rs. <%= income.amount %></span>
                 <% } else { %>
-                  <span style="color:red">$ <%= income.amount %></span>
+                  <span style="color:red">Rs. <%= income.amount %></span>
                     <% } %>
-              
+
                <span>  on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></span>
                </li>
            </a>

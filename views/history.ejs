@@ -1,0 +1,83 @@
+<%- include("header") -%>
+
+
+<div class="add-page">
+<form action="/history" method="post">
+
+    <select name="month" >
+        <option value=0>January</option>
+        <option value=1>Febuary</option>
+        <option value=2>March</option>
+        <option value=3>April</option>
+        <option value=4>May</option>
+        <option value=5>June</option>
+        <option value=6>July</option>
+        <option value=7>August</option>
+        <option value=8>September</option>
+        <option value=9>October</option>
+        <option value=10>November</option>
+        <option value=11>December</option>
+    </select>
+    <button type="submit" name="button" class="userButton"> Filter </button>
+</form>
+
+
+<div class="records">
+
+    <h3>Income</h3>
+    <% if ( IList.length > 0) { %>
+        <ul>
+            <% IList.forEach(function(income) { %>
+              <a href="/Item/<%= income._id %>">
+                <li class="record-list">
+                  <span><i class="<%= income.category %>"></i></span>
+                  <span><strong><%= income.title %> </strong></span>
+  
+                    <span style="color:lightgreen">Rs. <%= income.amount %></span>
+                  
+                 <span>  on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></span>
+                 </li>
+             </a>
+  
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No incomes added in this month.</p>
+    <% } %>
+   
+  </div>
+  <div class="records">
+
+    <h3>Expense</h3>
+    <% if ( EList.length > 0) { %>
+        <ul>
+            <% EList.forEach(function(income) { %>
+              <a href="/Item/<%= income._id %>">
+                <li class="record-list">
+                  <span><i class="<%= income.category %>"></i></span>
+                  <span><strong><%= income.title %> </strong></span>
+  
+                 
+                    <span style="color:red">Rs. <%= income.amount %></span>
+            
+  
+                 <span>  on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></span>
+                 </li>
+             </a>
+  
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No expense added in this month.</p>
+    <% } %>
+  
+  
+  </div>
+
+</div>
+
+
+
+
+<%- include("footer") -%>
+

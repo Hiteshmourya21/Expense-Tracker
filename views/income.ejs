@@ -1,7 +1,7 @@
 <%- include("header") -%>
 
 <div class="add-page">
-       <h2 style="display: flex;justify-content: space-between;"><span>Your Balance : $ <%= Yourbalance %> </span><span > Total Income : <span style="color:darkgreen;">$ <%= totalIncome%></span> </span></h2>
+       <h2 style="display: flex;justify-content: space-between;"><span>Your Balance : Rs. <%= Yourbalance %> </span><span > Total Income : <span style="color:darkgreen;">Rs. <%= totalIncome%></span> </span></h2>
        <form action="/add-income" method="post" class="income-expense-form">
            <div class="input-group">
                <label for="title">Title</label>
@@ -30,8 +30,9 @@
                    <% ItemList.forEach(function(income) { %>
                      <a href="/Item/<%= income._id %>/">
                        <li class="record-list">
+                        <span><i class="<%= income.category %>"></i></span>
                          <strong><%= income.title %> </strong>
-                         <span style="color:green">$ <%= income.amount %></span>
+                         <span style="color:green">Rs. <%= income.amount %></span>
                           on  <%= income.date.toLocaleDateString("en-US",{weekday:"long",year: "numeric",month: "long",day: "numeric",}) %></li>
                     </a>
                    <% }) %>
